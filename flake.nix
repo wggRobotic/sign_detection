@@ -17,6 +17,13 @@
           devShells.default = mkShell {
             buildInputs = [
               ninja
+              (
+                opencv.override
+                {
+                  enableGtk2 = true;
+                  gtk2 = pkgs.gtk2;
+                }
+              )
             ];
           };
         }

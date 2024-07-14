@@ -3,11 +3,11 @@ all:
 
 
 run: all
-	./build/c_http
+	./build/main
 
 clear:
 	rm -rf build/*
 	rm -rf build/.*
 
 setup: clear
-	cmake -B build -S . -GNinja
+	cmake -B build -S . -GNinja 
