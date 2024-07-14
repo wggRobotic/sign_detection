@@ -32,7 +32,13 @@ int main(int argc, char **argv) {
 
   // Check image for signs
   printf("Filenames_len: %d\n", filenames_len);
-  for (int i = 0; i < filenames_len; i++) {
+
+  // i is 2 to ignore . and ..
+  for (int i = 2; i < filenames_len; i++) {
+    char *filepath;
+    filepath = (char *)malloc(sizeof(filenames[i]) + strlen(IMAGE_DIR));
+    snprintf(filepath, sizeof(filenames[i]) + strlen(IMAGE_DIR), "%s/%s",
+             IMAGE_DIR, filenames[i]);
     // cv::Mat image;
     // image = cv::imread(filenames[i]);
   }
