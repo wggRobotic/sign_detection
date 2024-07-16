@@ -2,7 +2,12 @@
 #include <cstdlib>
 #include <dirent.h>
 #include <opencv2/highgui.hpp>
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/opencv.hpp>
+#include <opencv2/videoio.hpp>
 #include <stdio.h>
+
+using namespace cv;
 
 // ABSOLUTE PATH REQUIRED
 #define IMAGE_DIR "/bigssd/Dokumente/git/sign_detection/signs"
@@ -34,14 +39,20 @@ int main(int argc, char **argv) {
   printf("Filenames_len: %d\n", filenames_len);
 
   // i is 2 to ignore . and ..
+  Mat image;
+  image = imread("/bigssd/Dokumente/git/sign_detection/image.webp");
   for (int i = 2; i < filenames_len; i++) {
     char *filepath;
-    filepath = (char *)malloc(sizeof(filenames[i]) + strlen(IMAGE_DIR));
-    snprintf(filepath, sizeof(filenames[i]) + strlen(IMAGE_DIR), "%s/%s",
-             IMAGE_DIR, filenames[i]);
-    // cv::Mat image;
-    // image = cv::imread(filenames[i]);
+    int str_len = sizeof(filenames[i]) + strlen(IMAGE_DIR) + 3;
+    filepath = (char *)malloc(str_len);
+    snprintf(filepath, str_len, "%s/%s", IMAGE_DIR, filenames[i]);
+
+    Mat sign;
+    sign = imread(filepath);
+
+    float threshold = 0.7;
   }
 
+  printf("SUCCESS");
   return 0;
 }
