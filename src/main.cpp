@@ -1,8 +1,10 @@
 #include <cstdio>
 #include <cstdlib>
 #include <dirent.h>
+#include <opencv2/core.hpp>
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgcodecs.hpp>
+#include <opencv2/imgproc.hpp>
 #include <opencv2/opencv.hpp>
 #include <opencv2/videoio.hpp>
 #include <stdio.h>
@@ -51,6 +53,20 @@ int main(int argc, char **argv) {
     sign = imread(filepath);
 
     float threshold = 0.7;
+    matchTemplate(image, sign, image, TM_CCORR_NORMED);
+
+    double minVal, maxVal;
+    Point minLoc, maxLoc;
+    minMaxLoc(image, &minVal, &maxVal, &minLoc, &maxLoc);
+    if (maxVal >= threshold) {
+      std::cout << "Found " << filenames[i]
+                << " in the main image with match value " << maxVal
+                << " at location (" << maxLoc.x << ", " << maxLoc.y << ")"
+                << std::endl;
+    } else {
+      // std::cout << filenames[i] << " not found in the main image." <<
+      // std::endl;
+    }
   }
 
   printf("SUCCESS");
