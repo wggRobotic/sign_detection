@@ -11,7 +11,12 @@
     flake-utils.lib.eachDefaultSystem
     (
       system: let
-        pkgs = nixpkgs.legacyPackages.${system};
+        pkgs = import nixpkgs {
+          inherit system;
+          config = {
+            allowUnfree = true;
+          };
+        };
       in
         with pkgs; {
           devShells.default = mkShell {
@@ -22,6 +27,7 @@
                 {
                   enableGtk2 = true;
                   gtk2 = pkgs.gtk2;
+                  enableUnfree = true;
                 }
               )
             ];

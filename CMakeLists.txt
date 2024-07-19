@@ -14,4 +14,3 @@ target_link_libraries(main ${OpenCV_LIBS})
 target_include_directories(main PUBLIC include/)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
-
